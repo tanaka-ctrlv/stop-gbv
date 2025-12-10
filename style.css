@@ -200,14 +200,29 @@ body.no-scroll {
   padding: 2rem 4rem 0.5rem;
 }
 
+/* -------- LOGO HEADER -------- */
+
+.hero {
+  padding: 2rem 4rem 0.5rem;
+}
+
 .logo-box {
+  position: relative;
   background: #7c3aed;
-  padding: 1rem 1.25rem;
+  /* MORE padding on the right to make room for the arrow */
+  padding: 1rem 2.6rem 1rem 1.25rem;
   display: inline-block;
   border-radius: 0.35rem;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14); /* <- this is where rgba belongs */
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14);
   transform: translateY(-3px);
 }
+
+.logo-text {
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
 
 
 .logo-text {
@@ -215,6 +230,32 @@ body.no-scroll {
   font-weight: 700;
   font-size: 1.1rem;
 }
+
+
+/* white arrow in the top-right corner */
+.logo-arrow {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);  /* vertically center in the pill */
+  font-size: 1rem;
+  color: #ffffff;
+  font-weight: 700;
+  pointer-events: none; /* so the arrow doesn't block clicks */
+}
+
+.logo-box:hover .logo-arrow {
+  transform: translate(3px, -3px);
+  transition: transform 0.15s ease-out;
+}
+
+
+.logo-box:hover .logo-arrow {
+  transform: translate(2px, -2px);
+  transition: transform 0.15s ease-out;
+}
+
+
 
 /* -------- TIMELINE -------- */
 
