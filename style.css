@@ -29,7 +29,7 @@ body.no-scroll {
   transform: translateX(0);
   opacity: 1;
   transition: transform 0.9s ease-out, opacity 0.9s ease-out;
-  animation: introBgFade 2.4s ease-in-out forwards;  /* fade to purple */
+  animation: introBgFade 6s ease-in-out forwards;  /* fade to purple */
 }
 
 @keyframes introBgFade {
@@ -87,6 +87,76 @@ body.no-scroll {
   font-weight: 800;
   font-size: clamp(1.9rem, 4vw, 3rem);
 }
+
+/* this element becomes the actual paragraph container */
+.final-text-block {
+  text-align: left;     /* each line left aligned */
+  display: inline-block; /* ensures the block is centered properly */
+}
+
+/* --- Final Message Line Styling --- */
+.final-line {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: riseIn 0.8s ease-out forwards;
+  text-align: left; /* ensures perfect centering */
+}
+
+/* smaller first line */
+.small-line {
+  font-size: clamp(1.2rem, 2.6vw, 2rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.8rem;
+}
+
+/* bigger, more powerful lines */
+.big-line {
+  font-size: clamp(1.9rem, 4vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+/* rise + fade animation */
+@keyframes riseIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* stagger timings */
+.final-line:nth-of-type(1) { animation-delay: 0.0s; }
+.final-line:nth-of-type(2) { animation-delay: 2.5s; }
+.final-line:nth-of-type(3) { animation-delay: 3s; }
+.final-line:nth-of-type(4) { animation-delay: 3.7s; }
+
+/* keep your underline animation + underline styling */
+.intro-final .underline-va {
+  text-decoration: underline;
+  text-decoration-thickness: 10px;
+  text-decoration-color: #000;
+  text-underline-offset: 4px;
+  opacity: 0;
+  animation: emphasize 0.8s ease-in-out forwards;
+}
+
+/* fade in the underlined letters */
+@keyframes emphasize {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* stagger underline emphasis slightly AFTER each line rises */
+.underline-va:nth-of-type(1) { animation-delay: 0.6s; }
+.underline-va:nth-of-type(2) { animation-delay: 0.10s; }
+.underline-va:nth-of-type(3) { animation-delay: 0.14s; }
+
+
 
 /* when JS adds .show-final */
 #intro-overlay.show-final .intro-final {

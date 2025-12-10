@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Slide overlay away
       setTimeout(function () {
         overlay.classList.add("slide-out");
-      }, 4200); // ~4.2s
+      }, 6000); // ~4.2s
 
       // Remove overlay once slide-out finishes
       overlay.addEventListener("transitionend", function () {
