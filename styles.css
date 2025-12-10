@@ -1,0 +1,309 @@
+/* basic reset */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #000;
+  background: #fff;
+}
+
+/* --- HERO / LANDING --- */
+
+.hero {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.75rem;
+  padding: 3rem 4rem 1.5rem;
+}
+
+.logo-box {
+  background: #7c3aed;          /* purple block */
+  padding: 1rem 1.25rem;
+  display: inline-block;
+}
+
+.logo-text {
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.hero-text h1 {
+  font-size: 1.35rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* --- TIMELINE --- */
+
+.timeline {
+  position: relative;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2.5rem 4rem 4rem;
+}
+
+/* vertical line */
+.timeline-line {
+  position: absolute;
+  left: 3.1rem;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #000;
+}
+
+/* year block */
+.timeline-year {
+  position: relative;
+  margin: 3.5rem 0;
+  padding-left: 3.1rem;
+}
+
+.timeline-year h2 {
+  margin: 0;
+  font-size: 2.6rem;
+  font-weight: 800;
+}
+
+/* small square tick on the line */
+.dot {
+  position: absolute;
+  left: 2.5rem;
+  top: 1rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  background: #000;
+}
+
+/* --- CARDS --- */
+
+.card-list {
+  margin-top: 1.6rem;
+}
+
+.card {
+  position: relative;
+  display: block;
+  margin-bottom: 1.2rem;
+  margin-left: 4.1rem;
+  padding: 1.1rem 1.4rem 1.2rem;
+  background: #ffffff;
+  border-radius: 0.75rem;
+  text-decoration: none;
+  color: #111;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+
+  /* initial hidden state for scroll animation */
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.5s ease-out,
+    transform 0.5s ease-out,
+    box-shadow 0.15s ease-out;
+}
+
+.card p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.card strong {
+  font-weight: 700;
+}
+
+/* arrow in corner */
+.card-arrow {
+  position: absolute;
+  right: 0.9rem;
+  top: 0.7rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+/* state once card has scrolled into view */
+.card.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* hover state (defined after .in-view so it wins) */
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.14);
+}
+
+/* animate year headings too */
+.timeline-year h2 {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.45s ease-out, transform 0.45s ease-out;
+}
+
+.timeline-year h2.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .timeline-year h2 {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ---------- TABLET (medium screens) ---------- */
+/* e.g. iPad, small laptops */
+
+@media (max-width: 1024px) {
+  .hero {
+    padding: 2.5rem 2.5rem 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .hero-text h1 {
+    font-size: 1.2rem;
+  }
+
+  .timeline {
+    max-width: 90%;
+    padding: 2.2rem 2.5rem 3.5rem;
+  }
+
+  .timeline-line {
+    left: 2.7rem;
+  }
+
+  .timeline-year {
+    margin: 3rem 0;
+    padding-left: 2.9rem;
+  }
+
+  .dot {
+    left: 2.1rem;
+  }
+
+  .timeline-year h2 {
+    font-size: 2.3rem;
+  }
+
+  .card {
+    margin-left: 3.5rem;
+    padding: 1rem 1.2rem 1.1rem;
+  }
+
+  .card p {
+    font-size: 0.9rem;
+  }
+}
+
+/* ---------- SMALL TABLET / LARGE PHONE ---------- */
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 2rem 1.5rem 1.2rem;
+    gap: 1.2rem;
+  }
+
+  .hero-text h1 {
+    font-size: 1.1rem;
+  }
+
+  .timeline {
+    padding: 2rem 1.75rem 3rem;
+  }
+
+  .timeline-line {
+    left: 2.3rem;
+  }
+
+  .timeline-year {
+    margin: 2.7rem 0;
+    padding-left: 2.6rem;
+  }
+
+  .dot {
+    left: 1.8rem;
+  }
+
+  .timeline-year h2 {
+    font-size: 2rem;
+  }
+
+  .card {
+    margin-left: 3.1rem;
+  }
+}
+
+/* ---------- MOBILE PHONES ---------- */
+
+@media (max-width: 600px) {
+  .hero {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.75rem 1.25rem 1rem;
+  }
+
+  .hero-text h1 {
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+
+  .timeline {
+    padding: 1.8rem 1.25rem 3rem;
+  }
+
+  .timeline-line {
+    left: 1.8rem;
+  }
+
+  .timeline-year {
+    margin: 2.4rem 0;
+    padding-left: 2.1rem;
+  }
+
+  .dot {
+    left: 1.3rem;
+    top: 0.8rem;
+  }
+
+  .timeline-year h2 {
+    font-size: 1.8rem;
+  }
+
+  .card {
+    margin-left: 2.3rem;
+    padding: 0.95rem 1.1rem 1rem;
+  }
+
+  .card p {
+    font-size: 0.85rem;
+  }
+}
+
+/* ---------- VERY SMALL PHONES ---------- */
+
+@media (max-width: 400px) {
+  .timeline {
+    padding-inline: 1rem;
+  }
+
+  .timeline-line {
+    left: 1.6rem;
+  }
+
+  .timeline-year {
+    padding-left: 2rem;
+  }
+
+  .card {
+    margin-left: 2.1rem;
+  }
+}
