@@ -21,6 +21,12 @@ body {
   background: #7c3aed;
   padding: 1rem 1.25rem;
   display: inline-block;
+  border-radius: 0.35rem
+}
+
+.logo-box {
+  transform: translateY(-3px);
+   rgba(0,0,0,0.14);
 }
 
 .logo-text {
@@ -47,7 +53,8 @@ body {
   background: #000;
 }
 
-/* Heading aligned to line */
+/* heading aligned next to the line */
+
 .timeline-intro {
   margin-left: 3.8rem;
 }
@@ -63,7 +70,7 @@ body {
 .timeline-year {
   position: relative;
   margin: 3rem 0;
-  padding-left: 3.8rem; 
+  padding-left: 3.8rem;
 }
 
 .timeline-year h2 {
@@ -108,13 +115,24 @@ body {
 
 .card p {
   margin: 0;
-  font-size: 0.95rem;
-  line-height: 1.5;
+  font-size: 1rem;           /* bigger base size (~16px) */
+  line-height: 1.55;
 }
 
 .card strong {
   font-weight: 700;
 }
+
+/* tagline inside cards = editorial flavour */
+
+.card-tagline {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.9em;
+  font-style: italic;
+}
+
+/* purple arrow */
 
 .card-arrow {
   position: absolute;
@@ -126,6 +144,7 @@ body {
 }
 
 /* in-view animation */
+
 .card.in-view {
   opacity: 1;
   transform: translateY(0);
@@ -134,6 +153,17 @@ body {
 .card:hover {
   transform: translateY(-3px);
   box-shadow: 0 14px 30px rgba(0,0,0,0.14);
+}
+
+/* reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .timeline-year h2 {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
 
 /* -------- RESPONSIVE -------- */
@@ -151,6 +181,14 @@ body {
   .timeline-intro,
   .timeline-year {
     padding-left: 3.5rem;
+  }
+
+  .timeline-intro h1 {
+    font-size: 1.2rem;
+  }
+
+  .timeline-year h2 {
+    font-size: 2.3rem;
   }
 
   .card {
@@ -176,10 +214,16 @@ body {
     left: 2.6rem;
   }
 
+  .timeline-year h2 {
+    font-size: 2.1rem;
+  }
+
   .card {
     margin-left: 3.6rem;
   }
 }
+
+/* MOBILE: keep card text comfortably readable (no shrinking) */
 
 @media (max-width: 600px) {
   .timeline {
@@ -195,12 +239,48 @@ body {
     left: 2.3rem;
   }
 
+  .timeline-intro h1 {
+    font-size: 1.05rem;
+  }
+
+  .timeline-year h2 {
+    font-size: 1.9rem;
+  }
+
   .card {
     margin-left: 3.2rem;
-    padding: 0.95rem 1.1rem 1rem;
+    padding: 1rem 1.15rem 1.05rem;
   }
 
   .card p {
-    font-size: 0.85rem;
+    font-size: 1.02rem;   /* slightly larger on mobile */
+    line-height: 1.6;
+  }
+
+  .card-tagline {
+    font-size: 0.92em;
   }
 }
+
+#backToTop {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: #7c3aed;
+  color: white;
+  padding: 0.75rem 1.1rem;
+  border: none;
+  border-radius: 0.6rem;
+  font-size: 1rem;
+  cursor: pointer;
+  opacity: 0;              /* hidden by default */
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.2s ease;
+  z-index: 1000;
+}
+
+#backToTop.show {
+  opacity: 1;              /* visible when .show is added */
+  pointer-events: auto;
+}
+
