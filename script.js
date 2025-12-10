@@ -1,52 +1,86 @@
 // script.js
 
 document.addEventListener("DOMContentLoaded", function () {
-  // If user prefers reduced motion, skip animations
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
 
-  if (prefersReducedMotion) {
-    // Just add in-view immediately
-    document.querySelectorAll(".card, .timeline-year h2").forEach(function (el) {
-      el.classList.add("in-view");
-    });
-    return;
-  }
+  // ---------- INTRO OVERLAY ----------
 
-  // Create an IntersectionObserver to watch cards + headings
-  const observer = new IntersectionObserver(
-    function (entries, obs) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("in-view");
-          // Stop observing once it's visible
-          obs.unobserve(entry.target);
+  const overlay = document.getElementById("intro-overlay");
+
+  if (overlay) {
+    if (prefersReducedMotion) {
+      // Skip intro animations for users who prefer reduced motion
+      overlay.remove();
+    } else {
+      document.body.classList.add("no-scroll");
+
+      // Show "NO to VAW" after scattered words
+      setTimeout(function () {
+        overlay.classList.add("show-final");
+      }, 2600); // ~2.6s
+
+      // Slide overlay away
+      setTimeout(function () {
+        overlay.classList.add("slide-out");
+      }, 4200); // ~4.2s
+
+      // Remove overlay once slide-out finishes
+      overlay.addEventListener("transitionend", function () {
+        if (overlay.classList.contains("slide-out")) {
+          overlay.remove();
+          document.body.classList.remove("no-scroll");
         }
       });
-    },
-    {
-      threshold: 0.2 // 20% of element needs to be visible
     }
-  );
+  }
 
-  // Observe each card and each year heading
+  // ---------- SCROLL-IN ANIMATION (cards + year headings) ----------
+
   const itemsToObserve = document.querySelectorAll(".card, .timeline-year h2");
 
-  itemsToObserve.forEach(function (item) {
-    observer.observe(item);
-  });
-});
-const backToTopBtn = document.getElementById("backToTop");
-
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 500) {
-    backToTopBtn.classList.add("show");
+  if (prefersReducedMotion) {
+    // If reduced motion, just show everything immediately
+    itemsToObserve.forEach(function (el) {
+      el.classList.add("in-view");
+    });
   } else {
-    backToTopBtn.classList.remove("show");
-  }
-});
+    const observer = new IntersectionObserver(
+      function (entries, obs) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+            // Stop observing once it's visible
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.2 // 20% of element needs to be visible
+      }
+    );
 
-backToTopBtn.addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
+    itemsToObserve.forEach(function (item) {
+      observer.observe(item);
+    });
+  }
+
+  // ---------- BACK TO TOP BUTTON ----------
+
+  const backToTopBtn = document.getElementById("backToTop");
+
+  if (backToTopBtn) {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 500) {
+        backToTopBtn.classList.add("show");
+      } else {
+        backToTopBtn.classList.remove("show");
+      }
+    });
+
+    backToTopBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
 });
