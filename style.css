@@ -70,11 +70,33 @@ body.no-scroll {
 
 
 @keyframes wordFade {
-  0%   { opacity: 0; transform: translateY(8px); }
-  20%  { opacity: 1; transform: translateY(0); }
-  70%  { opacity: 1; }
-  100% { opacity: 0; transform: translateY(-6px); }
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  
+  20% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* hold fully visible */
+  60% {
+    opacity: 1;
+  }
+
+  /* begin smooth fade-out */
+  80% {
+    opacity: 0.6;
+    transform: translateY(-3px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
 }
+
 
 /* final message */
 .intro-final {
@@ -165,9 +187,11 @@ body.no-scroll {
 
 /* hide the scattered words once final shows */
 #intro-overlay.show-final .intro-word {
-  opacity: 0;
-  animation: none;
+
+  animation: wordFade 3s cubic-bezier(0.4, 0, 0.8, 1) forwards;
 }
+
+
 
 @keyframes finalFade {
   0%   { opacity: 0; transform: translate(-50%, -45%); }
